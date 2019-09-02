@@ -8,9 +8,10 @@
 /app/spool/*
 
 # Cache, session files and logs (Symfony3)
-/var/cache/*
-/var/logs/*
-/var/sessions/*
+/var
+!/var/cache/*
+!/var/logs/*
+!/var/sessions/*
 !var/cache/.gitkeep
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
@@ -46,3 +47,17 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+###> symfony/webpack-encore-pack ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-pack ###
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
