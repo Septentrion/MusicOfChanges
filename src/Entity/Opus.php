@@ -43,9 +43,25 @@ class Opus
      */
     private $duration;
 
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Opus", inversedBy="contains")
+     */
+    private $isPartOf;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Opus", mappedBy="isPartOf")
+     */
+    private $contains;
+
     public function __construct()
     {
         $this->creators = new ArrayCollection();
+        $this->contains = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,6 +144,61 @@ class Opus
     public function setDuration(?\DateTimeImmutable $duration): self
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getIsPartOf(): ?self
+    {
+        return $this->isPartOf;
+    }
+
+    public function setIsPartOf(?self $isPartOf): self
+    {
+        $this->isPartOf = $isPartOf;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getContains(): Collection
+    {
+        return $this->contains;
+    }
+
+    public function addContain(self $contain): self
+    {
+        if (!$this->contains->contains($contain)) {
+            $this->contains[] = $contain;
+            $contain->setIsPartOf($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContain(self $contain): self
+    {
+        if ($this->contains->contains($contain)) {
+            $this->contains->removeElement($contain);
+            // set the owning side to null (unless already changed)
+            if ($contain->getIsPartOf() === $this) {
+                $contain->setIsPartOf(null);
+            }
+        }
 
         return $this;
     }
