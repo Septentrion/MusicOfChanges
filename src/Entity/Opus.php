@@ -38,6 +38,11 @@ class Opus
      */
     private $creators;
 
+    /**
+     * @ORM\Column(type="time_immutable", nullable=true)
+     */
+    private $duration;
+
     public function __construct()
     {
         $this->creators = new ArrayCollection();
@@ -111,6 +116,18 @@ class Opus
                 $creator->setOpusId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDuration(): ?\DateTimeImmutable
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(?\DateTimeImmutable $duration): self
+    {
+        $this->duration = $duration;
 
         return $this;
     }
