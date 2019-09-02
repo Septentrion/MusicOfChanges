@@ -58,10 +58,16 @@ class Opus
      */
     private $contains;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Material", mappedBy="records")
+     */
+    private $recordedBy;
+
     public function __construct()
     {
         $this->creators = new ArrayCollection();
         $this->contains = new ArrayCollection();
+        $this->recordedBy = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -198,6 +204,34 @@ class Opus
             if ($contain->getIsPartOf() === $this) {
                 $contain->setIsPartOf(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Material[]
+     */
+    public function getRecordedBy(): Collection
+    {
+        return $this->recordedBy;
+    }
+
+    public function addRecordedBy(Material $recordedBy): self
+    {
+        if (!$this->recordedBy->contains($recordedBy)) {
+            $this->recordedBy[] = $recordedBy;
+            $recordedBy->addRecord($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecordedBy(Material $recordedBy): self
+    {
+        if ($this->recordedBy->contains($recordedBy)) {
+            $this->recordedBy->removeElement($recordedBy);
+            $recordedBy->removeRecord($this);
         }
 
         return $this;
