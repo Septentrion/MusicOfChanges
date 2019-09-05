@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Opus index{% endblock %}
+
+{% block body %}
+    <h1>Opus index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>CreationDate</th>
+                <th>Abstract</th>
+                <th>Duration</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for opus in opuses %}
+            <tr>
+                <td>{{ opus.id }}</td>
+                <td>{{ opus.title }}</td>
+                <td>{{ opus.creationDate ? opus.creationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ opus.abstract }}</td>
+                <td>{{ opus.duration ? opus.duration|date('H:i:s') : '' }}</td>
+                <td>{{ opus.type }}</td>
+                <td>
+                    <a href="{{ path('opus_show', {'id': opus.id}) }}">show</a>
+                    <a href="{{ path('opus_edit', {'id': opus.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('opus_new') }}">Create new</a>
+{% endblock %}

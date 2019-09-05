@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Opus{% endblock %}
+
+{% block body %}
+    <h1>Edit Opus</h1>
+
+    {{ include('opus/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('opus_index') }}">back to list</a>
+
+    {{ include('opus/_delete_form.html.twig') }}
+{% endblock %}

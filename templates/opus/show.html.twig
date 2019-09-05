@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Opus{% endblock %}
+
+{% block body %}
+    <h1>Opus</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ opus.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ opus.title }}</td>
+            </tr>
+            <tr>
+                <th>CreationDate</th>
+                <td>{{ opus.creationDate ? opus.creationDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Abstract</th>
+                <td>{{ opus.abstract }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ opus.duration ? opus.duration|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ opus.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('opus_index') }}">back to list</a>
+
+    <a href="{{ path('opus_edit', {'id': opus.id}) }}">edit</a>
+
+    {{ include('opus/_delete_form.html.twig') }}
+{% endblock %}

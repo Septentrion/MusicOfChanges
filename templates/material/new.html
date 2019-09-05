@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Material{% endblock %}
+
+{% block main %}
+    <h1>Create new Material</h1>
+
+    {{ include('material/_form.html.twig') }}
+
+    <button id="addOpus">Ajouter un enregistrement</button>
+    <ul id="newOpus"></ul>
+    <a href="{{ path('material_index') }}">back to list</a>
+    <script defer>
+      let collectionHolder = document.querySelector('#material_records');
+      let collectionWrapper = document.querySelector('#material_records > div');
+      collectionHolder.dataset.index = collectionWrapper.children.length;
+      let prototype = collectionHolder.dataset.prototype;
+      let adder = document.querySelector('#addOpus');
+      adder.addEventListener('click', function(event) {
+          // get the new index
+          let newIndex = collectionHolder.dataset.index;
+          let newForm = prototype;
+          newForm = newForm.replace(/__name__/g, newIndex);
+          collectionHolder.dataset.index++;
+          collectionWrapper.innerHTML = collectionWrapper.innerHTML + newForm;
+      })
+    </script>
+{% endblock %}

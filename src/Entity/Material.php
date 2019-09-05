@@ -39,7 +39,7 @@ class Material
     private $link;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Opus", inversedBy="recordedBy")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Opus", inversedBy="recordedBy", cascade={"persist"})
      */
     private $records;
 
@@ -126,4 +126,9 @@ class Material
 
         return $this;
     }
+
+        public function __toString()
+        {
+          return $this->source;
+        }
 }
