@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CoreController extends AbstractController
@@ -10,10 +11,10 @@ class CoreController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index()
+    public function index(): Response
     {
         return $this->render('core/index.html.twig', [
-            'controller_name' => 'CoreController',
+            'controller_name' => __CLASS__,
         ]);
     }
 }
